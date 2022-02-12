@@ -19,18 +19,24 @@ public class CurrencyExchangeController {
 	@Autowired
 	private Environment environment;
 	
-	@Autowired
-	private ExchangeValueRepository repository;
+	//@Autowired
+	//private ExchangeValueRepository repository;
 	
 	
 	@GetMapping("/currency-exchange/from/{from}/to/{to}")
 	public ExchangeValue retriveExchangeValue(@PathVariable String from, @PathVariable String to) {
 		
-		ExchangeValue exchangeValue = repository.findByFromAndTo(from, to);
+		ExchangeValue exchangeValue = null;//repository.findByFromAndTo(from, to);
 		//ExchangeValue exchangeValue = new ExchangeValue(1000L,from,to,BigDecimal.valueOf(82));
 		exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
 		logger.info("==>"+exchangeValue);
 		return exchangeValue;
+		
+	}
+	@GetMapping("/message")
+	public String retriveMessage() {
+		
+		return "Hello winFin service!";
 		
 	}
 }
